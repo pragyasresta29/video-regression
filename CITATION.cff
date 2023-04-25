@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 authors:
 - family-names: "SHRESTHA"
-  given-names: "PRAGY"
-title: "Estimating Engery Cost using 3D-CNN"
+  given-names: "PRAGYA"
+title: "Estimating Energy Cost using 3D-CNN"
 version: 1.0.0
 date-released: 2023-04-24
 url: "https://github.com/pragyasresta29/video-regression"
