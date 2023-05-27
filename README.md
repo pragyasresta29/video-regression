@@ -1,4 +1,4 @@
-# Estimation Energy Cost from Video using 3D-CNN
+# Estimating Energy Cost Of Physical Activities From Video Using 3D-CNN Network
 Deep learning model to predict mets(metabolic equivalent) from video. 
 
 # Setup Instructions
