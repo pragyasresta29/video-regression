@@ -1,5 +1,5 @@
 # Estimating Energy Cost Of Physical Activities From Video Using 3D-CNN Network
-Deep learning model to predict mets(metabolic equivalent) from video. 
+Deep learning model to predict mets(metabolic equivalent) from video. This project is part of my thesis research. 
 
 # Setup Instructions
 1. Install Python version 3.8
