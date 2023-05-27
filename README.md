@@ -3,7 +3,7 @@ Deep learning model to predict mets(metabolic equivalent) from video.
 
 # Setup Instructions
 1. Install Python version 3.8
-2. The libraries used in this project can be found in src/req.txt. To install this using pip: `pip install -r req.txt`
+2. The libraries used in this project can be found in req.txt. To install this using pip: `pip install -r req.txt`
 
 # Using Scripts
 We will use the scripts in the following order for preprocessing and running our experiment
