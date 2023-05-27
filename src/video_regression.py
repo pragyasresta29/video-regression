@@ -10,6 +10,7 @@ from keras.layers import Dense, Conv2D, MaxPool2D, Flatten, Dropout, Bidirection
 from sklearn.metrics import classification_report, confusion_matrix, mean_squared_error, r2_score, make_scorer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import KFold, cross_validate
+from sklearn.utils import class_weight
 
 from tensorflow_addons.metrics import RSquare
 from keras.regularizers import l2
@@ -79,19 +80,19 @@ def get_model(input_shape):
 
 def regression(train, test):
     data, data_labels = train[0], train[1]
-    test_data, test_labels = random_test_data(test[0], test[1], int(len(data_labels) * 0.3))
+    test_data, test_labels = test[0], test[1]
     input_shape = data.shape[1:]
     print("Input Shape: ", input_shape)
     data_labels = np.array(data_labels)
 
-    early_stop = EarlyStopping(monitor='val_root_mean_squared_error', patience=10, verbose=1)
-    # fetch model
+    early_stop = EarlyStopping(monitor='val_root_mean_squared_error', patience=5, verbose=1)
+
     model = get_model(input_shape)
     history = model.fit(data, data_labels,
-                        epochs=15,
-                        batch_size=32,
-                        validation_split=0.2,
-                        callbacks=[early_stop])
+                       epochs=25,
+                       batch_size=32,
+                       validation_split=0.2,
+                       callbacks=[early_stop])
 
     # testing
     y_pred = model.predict(test_data)

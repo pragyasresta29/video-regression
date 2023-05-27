@@ -10,6 +10,7 @@ from keras.layers import Dense, Conv2D, MaxPool2D, Flatten, Dropout, Bidirection
 from sklearn.metrics import classification_report, confusion_matrix, roc_auc_score
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import KFold
+from sklearn.utils import class_weight
 
 from keras.regularizers import l2
 from keras.optimizers import Adam
@@ -31,7 +32,7 @@ DIM = 80
 r = DIM / ORG_DIM[0]
 dim = (DIM, int(ORG_DIM[1] * r))
 
-#Save Processed data to pickle file
+# Save Processed data to pickle file
 processed_data_path = '/Users/pragya/PycharmProjects/NLP/video-regression/src/data/processed/'
 
 label_processor = keras.layers.StringLookup(
@@ -74,16 +75,19 @@ def get_model(input_shape):
 
 def classification(train, test, split=0.2):
     data, data_labels = train[0], train[1]
-    test_data, test_labels = random_test_data(test[0], test[1], int(len(data_labels) * 0.3))
+    test_data, test_labels = test[0], test[1]
     input_shape = data.shape[1:]
 
     labels = label_processor(data_labels).numpy()
-    early_stop = EarlyStopping(monitor='val_loss', patience=10, verbose=1)
+    test_labels = label_processor(test_labels).numpy()
+    early_stop = EarlyStopping(monitor='val_loss', patience=5, verbose=1)
+    class_weights = class_weight.compute_class_weight(class_weight='balanced', classes=np.unique(labels),
+                                                      y=labels)
+    class_weights = dict(zip(np.unique(labels), labels))
 
-    # fetch model
     model = get_model(input_shape)
     history = model.fit(data, labels,
-                        epochs=15,
+                        epochs=25,
                         batch_size=32,
                         validation_split=0.2,
                         callbacks=[early_stop])
@@ -119,9 +123,3 @@ def random_test_data(data, data_labels, size=300):
     X_test = data[ind]
     y_test = np.array(data_labels)[ind]
     return X_test, y_test
-
-
-
-
-
-
